@@ -44,7 +44,6 @@ public class SelectButton : MonoBehaviour
                 reset(i, true);
             }
             avatarAnchor.transform.localPosition = startpos;
-            //avatarAnchor.transform.GetChild(0).localEulerAngles = Vector3.zero;
         }
         else
         {
@@ -54,17 +53,16 @@ public class SelectButton : MonoBehaviour
                 reset(i, false);
             }
             avatarAnchor.transform.localPosition = new Vector3(-0.04f, 0, -1.3f);
-            //avatarAnchor.transform.GetChild(0).localPosition = Vector3.zero;
             avatarAnchor.SetActive(true);
         }
-        toggleStatus = !toggleStatus;
-        avatarAnchor.transform.localEulerAngles = Vector3.zero;
+        //toggleStatus = !toggleStatus;
 
         void reset(int i,bool setActive)
         {
-            Transform child = anchorObject.transform.GetChild(i);
+            Transform child = anchorObject.transform.GetChild(i); //avatar N
             child.gameObject.SetActive(setActive);
             child.GetChild(0).localPosition = Vector3.zero;
+            child.GetChild(0).localEulerAngles = Vector3.zero;
             animator = child.GetComponentInChildren<Animator>();
             animator.Play("BackSpotTurn_CrossBodyLead", -1, 0f);
         }
