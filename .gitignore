@@ -2,6 +2,11 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+
+Extra/SalsaDancer/blender/*.blend
+Extra/SalsaDancer/blender/*.blend[0-9]
+Extra/SalsaDancer/blender/*.blend[0-9][0-9]
+
 .utmp/
 /[Ll]ibrary/
 /[Tt]emp/
