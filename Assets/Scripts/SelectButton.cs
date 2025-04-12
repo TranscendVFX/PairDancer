@@ -48,12 +48,10 @@ public class SelectButton : MonoBehaviour
                 Transform child = anchorObject.transform.GetChild(i);
                 child.gameObject.SetActive(false);
             }
-            avatar.transform.localPosition = new Vector3(0, 0, 0);
+            avatar.transform.localPosition = new Vector3(-0.04f, 0, -1.3f);
             avatar.transform.GetChild(0).localPosition = new Vector3(0, 0, 0);
             avatar.SetActive(true);
         }
-
         toggleStatus = !toggleStatus;
-
     }
 }
