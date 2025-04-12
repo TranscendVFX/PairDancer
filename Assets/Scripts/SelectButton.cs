@@ -6,18 +6,22 @@ using UnityEngine.UI;
 
 public class SelectButton : MonoBehaviour
 {
-    [SerializeField] private GameObject avatar;
+    [SerializeField] private GameObject avatarAnchor;
     [SerializeField] private GameObject anchorObject;
+    
 
     private bool toggleStatus = false;
     private Vector3 startpos;
 
+    private Animator animator;
     private SpatialUIToggle localToggle;
+
     // Start is called before the first frame update
     void Start()
     {
         localToggle = GetComponentInChildren<SpatialUIToggle>();
-        startpos = avatar.transform.localPosition;
+        startpos = avatarAnchor.transform.localPosition;
+        
     }
 
     // Update is called once per frame
@@ -29,29 +33,40 @@ public class SelectButton : MonoBehaviour
     public void OnSelectButton()
     {
         if (anchorObject == null) return;
-        Debug.Log("OnSelectButton" + toggleStatus);
+        Debug.Log("OnSelectButton" + localToggle.Active);
 
-        //if(localToggle.isActiveAndEnabled)
-        if(toggleStatus)
+        if(!localToggle.Active)
+        //if(toggleStatus)
         {
+            // show the all avatars
             for (int i = 0; i < anchorObject.transform.childCount; i++)
             {
-                Transform child = anchorObject.transform.GetChild(i);
-                child.gameObject.SetActive(true);
+                reset(i, true);
             }
-            avatar.transform.localPosition = startpos;
+            avatarAnchor.transform.localPosition = startpos;
+            //avatarAnchor.transform.GetChild(0).localEulerAngles = Vector3.zero;
         }
         else
         {
+            // show the specified avatar
             for (int i = 0; i < anchorObject.transform.childCount; i++)
             {
-                Transform child = anchorObject.transform.GetChild(i);
-                child.gameObject.SetActive(false);
+                reset(i, false);
             }
-            avatar.transform.localPosition = new Vector3(-0.04f, 0, -1.3f);
-            avatar.transform.GetChild(0).localPosition = new Vector3(0, 0, 0);
-            avatar.SetActive(true);
+            avatarAnchor.transform.localPosition = new Vector3(-0.04f, 0, -1.3f);
+            //avatarAnchor.transform.GetChild(0).localPosition = Vector3.zero;
+            avatarAnchor.SetActive(true);
         }
         toggleStatus = !toggleStatus;
+        avatarAnchor.transform.localEulerAngles = Vector3.zero;
+
+        void reset(int i,bool setActive)
+        {
+            Transform child = anchorObject.transform.GetChild(i);
+            child.gameObject.SetActive(setActive);
+            child.GetChild(0).localPosition = Vector3.zero;
+            animator = child.GetComponentInChildren<Animator>();
+            animator.Play("BackSpotTurn_CrossBodyLead", -1, 0f);
+        }
     }
 }

@@ -13,6 +13,12 @@ namespace PolySpatial.Template
 
         bool m_Active;
 
+        public bool Active
+        {
+            get { return m_Active; }
+            set { m_Active = value; }
+        }
+
         public override void PressStart()
         {
             base.PressStart();

@@ -1,89 +1,89 @@
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using AOT;
-using PolySpatial.Samples;
-using TMPro;
-using UnityEngine;
+// using System.Collections.Generic;
+// using System.Runtime.InteropServices;
+// using AOT;
+// using PolySpatial.Samples;
+// using TMPro;
+// using UnityEngine;
 
-public class SwiftUiBridge : MonoBehaviour
-{
-    private delegate void CallbackDelegate(string command);
+// public class SwiftUiBridge : MonoBehaviour
+// {
+//     private delegate void CallbackDelegate(string command);
 
-    [SerializeField] private SpatialUIButton _button;
-    [SerializeField] private TMP_Text _text;
+//     [SerializeField] private SpatialUIButton _button;
+//     [SerializeField] private TMP_Text _text;
 
-    private bool _swiftUIWindowOpen = false;
+//     private bool _swiftUIWindowOpen = false;
 
-    private void OnEnable()
-    {
-        _button.WasPressed += WasPressed;
-        SetNativeInputCallback(CallbackFromNative);
-    }
+//     private void OnEnable()
+//     {
+//         _button.WasPressed += WasPressed;
+//         SetNativeInputCallback(CallbackFromNative);
+//     }
 
-    private void OnDisable()
-    {
-        SetNativeInputCallback(null);
-        CloseSwiftUIInputWindow("HelloWorld");
-    }
+//     private void OnDisable()
+//     {
+//         SetNativeInputCallback(null);
+//         CloseSwiftUIInputWindow("HelloWorld");
+//     }
 
-    private void WasPressed(string buttonText, MeshRenderer meshrenderer)
-    {
-        Debug.Log("----------> Button was pressed: " + buttonText);
+//     private void WasPressed(string buttonText, MeshRenderer meshrenderer)
+//     {
+//         Debug.Log("----------> Button was pressed: " + buttonText);
 
-        Toggle();
-    }
+//         Toggle();
+//     }
 
-    private void Toggle()
-    {
-        if (_swiftUIWindowOpen)
-        {
-            CloseSwiftUIInputWindow("InputViewScene");
-            _swiftUIWindowOpen = false;
-        }
-        else
-        {
-            OpenSwiftUIInputWindow("InputViewScene");
-            _swiftUIWindowOpen = true;
-        }
-    }
+//     private void Toggle()
+//     {
+//         if (_swiftUIWindowOpen)
+//         {
+//             CloseSwiftUIInputWindow("InputViewScene");
+//             _swiftUIWindowOpen = false;
+//         }
+//         else
+//         {
+//             OpenSwiftUIInputWindow("InputViewScene");
+//             _swiftUIWindowOpen = true;
+//         }
+//     }
 
-    [MonoPInvokeCallback(typeof(CallbackDelegate))]
-    private static void CallbackFromNative(string message)
-    {
-        Debug.Log("Callback from native: " + message);
+//     [MonoPInvokeCallback(typeof(CallbackDelegate))]
+//     private static void CallbackFromNative(string message)
+//     {
+//         Debug.Log("Callback from native: " + message);
 
-        SwiftUiBridge self = Object.FindFirstObjectByType<SwiftUiBridge>();
+//         SwiftUiBridge self = Object.FindFirstObjectByType<SwiftUiBridge>();
 
-        if (message == "closed")
-        {
-            self._swiftUIWindowOpen = false;
-        }
-        else
-        {
-            self._text.text = message;
-        }
-    }
+//         if (message == "closed")
+//         {
+//             self._swiftUIWindowOpen = false;
+//         }
+//         else
+//         {
+//             self._text.text = message;
+//         }
+//     }
 
-#if UNITY_VISIONOS && !UNITY_EDITOR
-        [DllImport("__Internal")]
-        private static extern void SetNativeInputCallback(CallbackDelegate callback);
+// #if UNITY_VISIONOS && !UNITY_EDITOR
+//         [DllImport("__Internal")]
+//         private static extern void SetNativeInputCallback(CallbackDelegate callback);
 
-        [DllImport("__Internal")]
-        private static extern void OpenSwiftUIInputWindow(string name);
+//         [DllImport("__Internal")]
+//         private static extern void OpenSwiftUIInputWindow(string name);
 
-        [DllImport("__Internal")]
-        private static extern void CloseSwiftUIInputWindow(string name);
-#else
-    static void SetNativeInputCallback(CallbackDelegate callback)
-    {
-    }
+//         [DllImport("__Internal")]
+//         private static extern void CloseSwiftUIInputWindow(string name);
+// #else
+//     static void SetNativeInputCallback(CallbackDelegate callback)
+//     {
+//     }
 
-    static void OpenSwiftUIInputWindow(string name)
-    {
-    }
+//     static void OpenSwiftUIInputWindow(string name)
+//     {
+//     }
 
-    static void CloseSwiftUIInputWindow(string name)
-    {
-    }
-#endif
-}
+//     static void CloseSwiftUIInputWindow(string name)
+//     {
+//     }
+// #endif
+// }
