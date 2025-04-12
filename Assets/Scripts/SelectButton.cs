@@ -10,12 +10,14 @@ public class SelectButton : MonoBehaviour
     [SerializeField] private GameObject anchorObject;
 
     private bool toggleStatus = false;
+    private Vector3 startpos;
 
     private SpatialUIToggle localToggle;
     // Start is called before the first frame update
     void Start()
     {
         localToggle = GetComponentInChildren<SpatialUIToggle>();
+        startpos = avatar.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class SelectButton : MonoBehaviour
                 Transform child = anchorObject.transform.GetChild(i);
                 child.gameObject.SetActive(true);
             }
+            avatar.transform.localPosition = startpos;
         }
         else
         {
@@ -45,6 +48,8 @@ public class SelectButton : MonoBehaviour
                 Transform child = anchorObject.transform.GetChild(i);
                 child.gameObject.SetActive(false);
             }
+            avatar.transform.localPosition = new Vector3(0, 0, 0);
+            avatar.transform.GetChild(0).localPosition = new Vector3(0, 0, 0);
             avatar.SetActive(true);
         }
 
