@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class SwiftUiBridge : MonoBehaviour
 {
+    /*
     private delegate void CallbackDelegate(string command);
 
     [SerializeField] private SpatialUIButton _button;
@@ -86,4 +87,5 @@ public class SwiftUiBridge : MonoBehaviour
     {
     }
 #endif
+*/
 }
