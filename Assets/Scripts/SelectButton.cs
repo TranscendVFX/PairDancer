@@ -53,7 +53,7 @@ public class SelectButton : MonoBehaviour
             {
                 reset(i, false);
             }
-            avatarAnchor.transform.localPosition = new Vector3(-0.04f, 0, -3.3f);
+            avatarAnchor.transform.localPosition = new Vector3(-0.04f, 0, -1.5f);
             //avatarAnchor.transform.GetChild(0).localPosition = Vector3.zero;
             avatarAnchor.SetActive(true);
         }
