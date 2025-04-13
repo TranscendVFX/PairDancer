@@ -15,15 +15,15 @@ public class AnimatorChecker : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= 1.0f)
-        {
-            timer = 0f;
-            CheckAnimation(animator1);
-            CheckAnimation(animator2);
-            CheckAnimation(animator3);
+        // timer += Time.deltaTime;
+        // if (timer >= 1.0f)
+        // {
+        //     timer = 0f;
+        //     CheckAnimation(animator1);
+        //     CheckAnimation(animator2);
+        //     CheckAnimation(animator3);
 
-        }
+        // }
     }
 
     private static void CheckAnimation(Animator animator)

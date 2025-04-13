@@ -8,7 +8,8 @@ public class SelectButton : MonoBehaviour
 {
     [SerializeField] private GameObject avatarAnchor;
     [SerializeField] private GameObject anchorObject;
-    
+
+    [SerializeField] private ButtonController buttonController;
 
     private bool toggleStatus = false;
     private Vector3 startpos;
@@ -21,13 +22,13 @@ public class SelectButton : MonoBehaviour
     {
         localToggle = GetComponentInChildren<SpatialUIToggle>();
         startpos = avatarAnchor.transform.localPosition;
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnSelectButton()
@@ -35,10 +36,13 @@ public class SelectButton : MonoBehaviour
         if (anchorObject == null) return;
         Debug.Log("OnSelectButton" + localToggle.Active);
 
-        if(!localToggle.Active)
+        if (!localToggle.Active)
         //if(toggleStatus)
         {
+            buttonController.targetButton = null;
+
             // show the all avatars
+            this.gameObject.SetActive(true);
             for (int i = 0; i < anchorObject.transform.childCount; i++)
             {
                 reset(i, true);
@@ -56,16 +60,23 @@ public class SelectButton : MonoBehaviour
             avatarAnchor.transform.localPosition = new Vector3(-0.04f, 0, -1.5f);
             //avatarAnchor.transform.GetChild(0).localPosition = Vector3.zero;
             avatarAnchor.SetActive(true);
+
+            var targetSpatialUIButton = this.GetComponentInChildren<SpatialUIToggle>();
+            if (targetSpatialUIButton == null) Debug.Log("SpatialUIButton Not find");
+            buttonController.targetButton = targetSpatialUIButton;
+
+            this.gameObject.SetActive(false);
+
         }
         toggleStatus = !toggleStatus;
         avatarAnchor.transform.localEulerAngles = Vector3.zero;
 
-        void reset(int i,bool setActive)
+        void reset(int i, bool setActive)
         {
             Transform child = anchorObject.transform.GetChild(i);
             child.gameObject.SetActive(setActive);
             child.GetChild(0).localPosition = Vector3.zero;
-            
+
             animator = child.GetComponentInChildren<Animator>();
             if (animator == null)
             {
