@@ -53,7 +53,7 @@ public class SelectButton : MonoBehaviour
             {
                 reset(i, false);
             }
-            avatarAnchor.transform.localPosition = new Vector3(-0.04f, 0, -1.3f);
+            avatarAnchor.transform.localPosition = new Vector3(-0.04f, 0, -3.3f);
             //avatarAnchor.transform.GetChild(0).localPosition = Vector3.zero;
             avatarAnchor.SetActive(true);
         }
@@ -65,7 +65,12 @@ public class SelectButton : MonoBehaviour
             Transform child = anchorObject.transform.GetChild(i);
             child.gameObject.SetActive(setActive);
             child.GetChild(0).localPosition = Vector3.zero;
+            
             animator = child.GetComponentInChildren<Animator>();
+            if (animator == null)
+            {
+                Debug.Log("[PairDance] No animator");
+            }
             animator.Play("BackSpotTurn_CrossBodyLead", -1, 0f);
         }
     }
